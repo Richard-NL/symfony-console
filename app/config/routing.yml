@@ -1,0 +1,4 @@
+rsh_utils:
+    resource: "@RshUtilsBundle/Resources/config/routing.yml"
+    prefix:   /
+

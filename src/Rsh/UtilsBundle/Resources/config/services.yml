@@ -1,0 +1,7 @@
+parameters:
+#    rsh_utils.example.class: Rsh\UtilsBundle\Example
+
+services:
+#    rsh_utils.example:
+#        class: %rsh_utils.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
