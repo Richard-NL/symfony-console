@@ -1,16 +1,15 @@
 <VirtualHost *:80>
     ServerName {{ name }}
-    DocumentRoot {{ webrootPath }}
+    DocumentRoot {{ webRootPath }}
 
-    <Directory {{ webrootPath }}>
-        Options -Indexes FollowSymLinks MultiViews
+    <Directory {{ webRootPath }}>
+        Options -Indexes +FollowSymLinks +MultiViews
         AllowOverride All
-        Order allow,deny
-        allow from all
+        Require all granted
     </Directory>
 
     ErrorLog ${APACHE_LOG_DIR}/error.log
+
     LogLevel warn
     CustomLog ${APACHE_LOG_DIR}/access.log combined
-
 </VirtualHost>
