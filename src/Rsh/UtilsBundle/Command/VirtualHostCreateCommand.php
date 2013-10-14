@@ -6,10 +6,10 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-    use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use RuntimeException;
 
-class VirtualHostCommand extends ContainerAwareCommand
+class VirtualHostCreateCommand extends ContainerAwareCommand
 {
     protected function configure()
     {
