@@ -5,23 +5,10 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 
 
-class VirtualHostReadCommand extends ContainerAwareCommand
+class VirtualHostReadCommand extends AbstractVirtualHostCommand
 {
-    private $sitesEnabledDir = '/etc/apache2/sites-enabled';
-
-    public function setSitesEnabledDir($sitesEnabledDir)
-    {
-        $this->sitesEnabledDir = $sitesEnabledDir;
-    }
-
-    public function getSitesEnabledDir()
-    {
-        return $this->sitesEnabledDir;
-    }
-
     protected function configure()
     {
         $this
