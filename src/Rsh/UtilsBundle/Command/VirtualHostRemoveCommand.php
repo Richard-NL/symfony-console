@@ -17,23 +17,24 @@ class VirtualHostRemoveCommand extends AbstractVirtualHostCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $dialog = $this->getHelperSet()->get('dialog');
-
         $finder = new Finder();
         $finder->files()->in($this->getSitesEnabledDir())->name('*.conf');
-
 
         $table = $this->getHelperSet()->get('table');
         $table
             ->setHeaders(array('Option', 'Virtualhost'));
 
         $fileCount = 0;
+        $files = array();
         foreach ($finder as $file) {
             $fileCount +=1;
+            $files[$fileCount] = $file;
             $table->addRow(array($fileCount, $file->getFilename()));
         }
         $table->render($output);
+        $fileCount = $finder->count();
 
+        $dialog = $this->getHelperSet()->get('dialog');
         $option = $dialog->askAndValidate(
             $output,
             'which virtualhost would you like to remove?',
@@ -47,8 +48,12 @@ class VirtualHostRemoveCommand extends AbstractVirtualHostCommand
                 return $answer;
             }
         );
+        $password = $dialog->askHiddenResponse($output, 'Root permission required to write file: ');
+        $this->writeHostFile(str_replace('.conf', '', $files[$option]->getFilename()), $password);
 
-        $output->writeln('you have chosen :' . $option);
+
+        $this->removeVirtualHostConfigFiles($password, $files[$option]);
+        $output->writeln('you have chosen :' . $option . ' which is file :' . $files[$option]);
     }
 
     /**
@@ -68,5 +73,29 @@ class VirtualHostRemoveCommand extends AbstractVirtualHostCommand
 
         $fileContent = implode(PHP_EOL, $lines);
         shell_exec("echo {$password} | echo 'echo \"$fileContent\" > $configFileName' | sudo -s");
+    }
+
+    /**
+     * @param $password
+     * @param $file
+     */
+    private function removeVirtualHostConfigFiles($password, $file)
+    {
+        shell_exec(
+            sprintf(
+                'echo %s |sudo unlink %s/%s',
+                $password,
+                $this->getSitesEnabledDir(),
+                $file->getFilename()
+            )
+        );
+        shell_exec(
+            sprintf(
+                'echo %s |sudo rm -f %s/%s',
+                $password,
+                $this->getSitesAvailableDir(),
+                $file->getFilename()
+            )
+        );
     }
 }
