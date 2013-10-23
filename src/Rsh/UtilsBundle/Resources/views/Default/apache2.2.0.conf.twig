@@ -3,9 +3,10 @@
     DocumentRoot {{ webRootPath }}
 
     <Directory {{ webRootPath }}>
-        Options -Indexes +FollowSymLinks +MultiViews
+        Options -Indexes FollowSymLinks MultiViews
         AllowOverride All
-        Require all granted
+        Order allow,deny
+        allow from all
     </Directory>
 
     ErrorLog ${APACHE_LOG_DIR}/error.log
