@@ -10,6 +10,7 @@ class AppKernel extends Kernel
         $bundles = array(
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Rsh\UtilsBundle\RshUtilsBundle(),
+            new Gregwar\ImageBundle\GregwarImageBundle(),
         );
 
         return $bundles;
