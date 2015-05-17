@@ -11,6 +11,7 @@ class AppKernel extends Kernel
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Rsh\UtilsBundle\RshUtilsBundle(),
             new Gregwar\ImageBundle\GregwarImageBundle(),
+            new Symfony\Bundle\TwigBundle\TwigBundle(),
         );
 
         return $bundles;
