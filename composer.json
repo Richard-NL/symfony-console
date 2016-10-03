@@ -10,7 +10,8 @@
         "php": ">=5.3.3",
         "symfony/symfony": "2.3.*",
         "gregwar/image-bundle": "dev-master",
-        "twig/extensions": "1.0.*"
+        "twig/extensions": "1.0.*",
+        "sensio/generator-bundle": "2.3.*"
     },
     "require-dev": {
         "phpunit/phpunit": "4.0.*"
