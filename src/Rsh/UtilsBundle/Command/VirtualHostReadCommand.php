@@ -20,9 +20,13 @@ class VirtualHostReadCommand extends AbstractVirtualHostCommand
     {
         $finder = new Finder();
         $finder->files()->in($this->getSitesEnabledDir())->name('*.conf');
+        $table = $this->getHelperSet()->get('table');
+        $table
+            ->setHeaders(array('filepath', 'Virtualhost'));
 
-        foreach ($finder as $file) {
-            $output->writeln(str_replace('.conf', '', $file->getFilename()));
+        foreach ($finder as $filepath => $file) {
+            $table->addRow([$filepath, str_replace('.conf', '', $file->getFilename())]);
         }
+        $table->render($output);
     }
 }
